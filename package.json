@@ -1,0 +1,12 @@
+{
+  "name": "pixelm",
+  "version": "0.0.0",
+  "description": "A strudy frontend framework for pixi, inspired by elm.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["elm","pixijs","pixi","frontend","interface","framework"],
+  "author": "florian bellazouz",
+  "license": "ISC"
+}
