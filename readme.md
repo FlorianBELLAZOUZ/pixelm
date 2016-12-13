@@ -156,5 +156,3 @@ const view = (model, prev, send)=>{
 App({model:model(), reducer, view, el:document.body})
 
 ```
-
-
