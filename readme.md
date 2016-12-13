@@ -6,12 +6,13 @@ DataFlow
 ---------
 Simple and powerfull elmish Data flow
 
+```
  action ----<--+---<--+
    |           |    effect
 reducer        +-->---+
    |           |
   view -->-----+
-
+```
 
 Feactures
 ---------
@@ -47,23 +48,30 @@ Api
 ---------
 the api is compose of one function
 
-// APP :: {model,view,reducer,effect,el}
+
+APP :: {model,view,reducer,effect,el}
+
 App :: APP app:Object => canvas:DomCanvas
 
 **model :: data:Object => model:Object**
+
 Should return the state of the app.
 
 **reducer :: model:Object => action:Object => model:Object**
+
 Receives the current state and returns an updated version of the state which is then sent to the views.
 
 **view :: model:Object => prev:Object => send:Function => tree:Pixi.DisplaObject**
+
 Pure functions that should return a DisplayObject.
 They’re receives the current state, the prev state and the send function to call an action.
 
 **effect :: model:Object => action:Object => send:Function => undefined**
+
 Effects makes an asynchronous operation and calls another action when it's done.
 
 **el :: element:HtmlElement**
+
 The Dom element here the pixi canvas will be attach.
 
 
