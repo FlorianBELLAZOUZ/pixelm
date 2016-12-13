@@ -4,9 +4,21 @@
   "description": "A strudy frontend framework for pixi, inspired by elm.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "E2E": "cd test/E2E && webpack --devtool source-map ./test.js ./bundle.js && static-server -p 80"
   },
-  "keywords": ["elm","pixijs","pixi","frontend","interface","framework"],
+  "keywords": [
+    "elm",
+    "pixijs",
+    "pixi",
+    "frontend",
+    "interface",
+    "framework"
+  ],
   "author": "florian bellazouz",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "pixi.js": "^4.2.3",
+    "tween.js": "tweenjs/tween.js"
+  }
 }
