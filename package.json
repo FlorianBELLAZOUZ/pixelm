@@ -4,7 +4,7 @@
   "description": "A strudy frontend framework for pixi, inspired by elm.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --bail --watch",
     "E2E": "cd test/E2E && webpack --devtool source-map ./test.js ./bundle.js && static-server -p 80"
   },
   "keywords": [
@@ -18,7 +18,12 @@
   "author": "florian bellazouz",
   "license": "ISC",
   "dependencies": {
+    "muuute": "github:florianbellazouz/muuute",
     "pixi.js": "^4.2.3",
     "tween.js": "tweenjs/tween.js"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "should": "^11.1.2"
   }
 }
