@@ -1,45 +1,45 @@
-const Tween = require('tween.js')
+// const {view,model,reducer} = require('./panel')
 const Pixi = require('pixi.js')
-const App = require('../../index')
+const Tabs = require('./tabs')
+const App = require('../..')
+const Mute = require('muuute').mute
 
-const model = ()=>({color:0xFF000F})
+const pixiOpts = {width:1920,heigth:1080}
 
-const back = Tween.Easing.Back.Out
-const tw = obj=>to=>new Tween.Tween(obj.scale).to(to,200).easing(back)
+const model = ()=>({currentPath:'/shop'})
 
-const pop = obj=>{
-  const tweenScale = tw(obj)
-  const a = tweenScale({x:1.5,y:1.5})
-  const b = tweenScale({x:1,y:1})
-  a.chain(b)
-  a.start()
+const reducer = (model,action)=>{
+  if(action.type==='newPath') return Object.assign({},model,{currentPath:action.path})
+}
+
+const tabs = [
+  {path:'/news',name:'news'},
+  {path:'/shop',name:'shop'},
+  {path:'/cointributors',name:'cointributors'},
+]
+
+const animation = {
+  animations:[
+    {
+      property:'x',
+      keys:[0,300,0],
+      duration:5000,
+      iterations:Infinity,
+      interpolation:'catmullrom',
+    }
+  ]
 }
 
 const view = (model,prev,send)=>{
-  const square = new Pixi.Graphics()
-  square.beginFill(model.color)
-  square.drawRect(-50,-50,100,100)
-  square.x = 500
-  square.y = 500
+  const container = new Pixi.Container()
+  container.name = 'main'
+  const tabsView = Tabs.view(Tabs.model({tabs,currentPath:model.currentPath}),{},send)
+  tabsView.name = 'tabs'
 
-  if(model.color!=prev.color) pop(square)
+  Mute(tabsView,animation)
 
-  document.body.onclick = send.bind(0,{type:'change'})
-
-  return square
+  container.addChild(tabsView)
+  return container
 }
 
-const colors = [0xFF0000,0x00FF00,0x0000FF,0xFFFF00]
-const random = max=>Math.floor(Math.random()*max)
-const pick = array=>array[random(array.length)]
-const pickDiff = last=>array=>{
-  const now = pick(array)
-  return now===last?pickDiff(last)(array):now
-}
-
-const reducer = (model, action)=>{
-  if(action.type==='change') return {color:pickDiff(model.color)(colors)}
-  return model
-}
-
-App({model:model(),view,reducer})
+App({model:model(),reducer,view,pixiOpts})
