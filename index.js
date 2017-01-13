@@ -1,5 +1,10 @@
 const Pixi = require('pixi.js')
-const Tween = require('tween.js')
+const Mute = require('muuute')
+const TreeForEachIdentical = require('./lib/treeForEachIdentical').treeForEachIdentical
+
+const properties = ['x','y','alpha','scale.x','scale.y']
+const transfert = (a,b)=>Mute.switch(a,properties,b,a.__style__)
+const isSame = (a,b)=>a&&b&&a.name&&b.name&&a.name==b.name
 
 // App :: {model:Object, Reducer reducer:Function, View view:Function, Effet effect:Function, el:DomElement}
 // Model :: data:Object => model:Object
@@ -16,17 +21,24 @@ const app = ({model,view,reducer,effect=()=>{},el=document.body,pixiOpts={}})=>{
 
   const dispatch = action =>{
     const newModel = reducer(model, action)
-    rerender = newModel != model
+    rerender = newModel !== model
     if(rerender){
-      tree = view(newModel, model, dispatch)
+      Mute.desactivate()
+      var newTree = view(newModel,model,dispatch)
+      Mute.activate()
+
+      TreeForEachIdentical(transfert,isSame,newTree,tree)
+      tree = newTree
       model = newModel
     }
   }
 
+  window.update = Mute.update
+
   const frame = time=>{
     requestAnimationFrame(frame)
-    Tween.update(time)
-    if(Tween.getAll().length || rerender){
+    if(Mute.muted() || rerender){
+      Mute.update()
       renderer.render(tree)
       rerender = false
     }

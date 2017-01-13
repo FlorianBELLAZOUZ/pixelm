@@ -1,5 +1,5 @@
 const Should = require('chai').Should()
-const identical = require('../lib/treeMatchIdentical')
+const identical = require('../lib/treeForEachIdentical')
 
 describe('.arrayForEachIdentical :: func=>isSame=>arrayA=>arrayB', ()=>{
   it('should return list of same elements',()=>{
