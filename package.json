@@ -19,8 +19,10 @@
   "license": "ISC",
   "dependencies": {
     "muuute": "github:florianbellazouz/muuute",
-    "pixi.js": "^4.2.3",
     "tween.js": "tweenjs/tween.js"
+  },
+  "peerDependencies":{
+    "pixi.js": "^4.2.3"
   },
   "devDependencies": {
     "chai": "^3.5.0",
