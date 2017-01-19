@@ -1,4 +1,5 @@
 const Pixi = require('pixi.js')
+const PixiDom = require('pixi.dom')(Pixi)
 const Mute = require('muuute')
 const TreeForEachIdentical = require('./lib/treeForEachIdentical').treeForEachIdentical
 
@@ -24,6 +25,7 @@ const app = ({model,view,reducer,effect=()=>{},el=document.body,pixiOpts={}})=>{
     rerender = newModel !== model
     if(rerender){
       Mute.desactivate()
+      destroyDomElements(Pixi.DOM.getAllElements())
       var newTree = view(newModel,model,dispatch)
       Mute.activate()
 
@@ -50,6 +52,12 @@ const app = ({model,view,reducer,effect=()=>{},el=document.body,pixiOpts={}})=>{
   requestAnimationFrame(frame)
   el.appendChild(renderer.view)
   return el
+}
+
+const destroyDomElements = els=>{
+  for(var i = els.length-1; i!=-1; i--){
+    els[i].destroy()
+  }
 }
 
 module.exports = app
