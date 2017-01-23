@@ -22,6 +22,7 @@ const app = ({model,view,reducer,effect=()=>{},el=document.body,pixiOpts={}})=>{
 
   const dispatch = action =>{
     const newModel = reducer(model, action)
+    effect(newModel, model, action, dispatch)
     rerender = newModel !== model
     if(rerender){
       Mute.desactivate()
