@@ -11,7 +11,7 @@ const isSame = (a,b)=>a&&b&&a.name&&b.name&&a.name==b.name
 // Model :: data:Object => model:Object
 // Reducer :: model:Object => action:Object => model:Object
 // View :: model:Object => prev:Object => send:Function => tree:Pixi.DisplaObject
-// Effect :: model:Object => action:Object => send:Function => undefined
+// Effect :: model:Object => prev:Object => action:Object => send:Function => undefined
 // app :: IO App app:Object
 const app = ({model,view,reducer,effect=()=>{},el=document.body,pixiOpts={}})=>{
   const width = pixiOpts.width || 1000
@@ -36,8 +36,6 @@ const app = ({model,view,reducer,effect=()=>{},el=document.body,pixiOpts={}})=>{
     }
   }
 
-  window.update = Mute.update
-
   const frame = time=>{
     requestAnimationFrame(frame)
     if(Mute.muted() || rerender){
@@ -47,6 +45,7 @@ const app = ({model,view,reducer,effect=()=>{},el=document.body,pixiOpts={}})=>{
     }
   }
 
+  dispatch({type:'init'})
   tree = view(model,{},dispatch)
   renderer.render(tree)
 
