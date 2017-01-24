@@ -20,8 +20,6 @@ const app = ({model,view,reducer,effect=()=>{},el=document.body,pixiOpts={}})=>{
   let tree
   let rerender
 
-  const send=setTimeout(dispatch,1)
-
   const dispatch = action =>{
     const newModel = reducer(model, action)
     effect(newModel, model, action, send)
@@ -37,6 +35,8 @@ const app = ({model,view,reducer,effect=()=>{},el=document.body,pixiOpts={}})=>{
       model = newModel
     }
   }
+
+  const send=setTimeout(dispatch,1)
 
   const frame = time=>{
     requestAnimationFrame(frame)
