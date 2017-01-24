@@ -20,14 +20,16 @@ const app = ({model,view,reducer,effect=()=>{},el=document.body,pixiOpts={}})=>{
   let tree
   let rerender
 
+  const send=setTimeout(dispatch,1)
+
   const dispatch = action =>{
     const newModel = reducer(model, action)
-    effect(newModel, model, action, dispatch)
+    effect(newModel, model, action, send)
     rerender = newModel !== model
     if(rerender){
       Mute.desactivate()
       destroyDomElements(Pixi.DOM.getAllElements())
-      var newTree = view(newModel,model,dispatch)
+      var newTree = view(newModel,model,send)
       Mute.activate()
 
       TreeForEachIdentical(transfert,isSame,newTree,tree)
@@ -45,8 +47,8 @@ const app = ({model,view,reducer,effect=()=>{},el=document.body,pixiOpts={}})=>{
     }
   }
 
-  dispatch({type:'init'})
-  tree = view(model,{},dispatch)
+  send({type:'init'})
+  tree = view(model,{},send)
   renderer.render(tree)
 
   requestAnimationFrame(frame)
