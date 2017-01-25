@@ -36,7 +36,7 @@ const app = ({model,view,reducer,effect=()=>{},el=document.body,pixiOpts={}})=>{
     }
   }
 
-  const send = action=>setTimeout(()=>dispatch(action),1)
+  const send = action=>setTimeout(()=>dispatch(action))
 
   const frame = time=>{
     requestAnimationFrame(frame)
