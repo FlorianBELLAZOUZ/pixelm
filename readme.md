@@ -35,7 +35,7 @@ const reducer = (model, action)=>{
 const view = (model, prev, send)=>{
   const text = Pixi.Text()
   text.text = model.clicks
-  text.onclick = send.bind(0,{type:'inc'})
+  text.onclick = ()=>send({type:'inc'})
   text.onblur = send.bind(0,{type:'dec'})
   return text
 }
