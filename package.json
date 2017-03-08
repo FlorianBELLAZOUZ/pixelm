@@ -18,8 +18,8 @@
   "author": "florian bellazouz",
   "license": "ISC",
   "dependencies": {
-    "muuute": "github:florianbellazouz/muuute",
-    "tween.js": "tweenjs/tween.js"
+    "muuute": "florianbellazouz/muuute",
+    "tween.js": "florianbellazouz/tween.js"
   },
   "peerDependencies":{
     "pixi.js": "^4.2.3"
