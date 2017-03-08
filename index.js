@@ -25,10 +25,8 @@ const app = ({model,view,reducer,effect=()=>{},el=document.body,pixiOpts={}})=>{
     effect(newModel, model, action, send)
     rerender = newModel !== model
     if(rerender){
-      Mute.desactivate()
       destroyDomElements(Pixi.DOM.getAllElements())
       var newTree = view(newModel,model,send)
-      Mute.activate()
 
       TreeForEachIdentical(transfert,isSame,newTree,tree)
       tree = newTree
