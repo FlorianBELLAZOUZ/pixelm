@@ -66,7 +66,7 @@ Receives the current state and returns an updated version of the state which is 
 Pure functions that should return a DisplayObject.
 They’re receives the current state, the prev state and the send function to call an action.
 
-**effect :: model:Object => action:Object => send:Function => undefined**
+**effect :: model:Object => action:Object => send:Function => renderer => tree:DisplayObject => undefined**
 
 Effects makes an asynchronous operation and calls another action when it's done.
 
